@@ -28,7 +28,7 @@ Chapter1 merupakan RestAPI dari sebuah toko buku online yang dibangun menggunaka
 
 ## 🗺️ ER Diagram 
 
-![ER Diagram](https://drive.google.com/file/d/1GFxiCPoZ1ZHhv-oXEvmLVYEdGNyz3YUE/view?usp=sharing)
+![ER Diagram](.image/ERD.png)
 
 ## 🛠️ Library & Tools 
 ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white) 
