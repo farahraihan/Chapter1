@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"chapter1/internal/factory"
+
+	"github.com/labstack/echo/v4"
+)
 
 func main() {
-	fmt.Println("Tes")
+	e := echo.New()
+
+	factory.InitFactory(e)
+	e.Logger.Error(e.Start(":8000"))
 }
