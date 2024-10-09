@@ -1,17 +1,11 @@
 package config
 
 import (
-	// ex_rep "eco_points/internal/features/exchanges/repository"
-	// f_rep "eco_points/internal/features/feedbacks/repository"
-	// l_rep "eco_points/internal/features/locations/repository"
-	// r_rep "eco_points/internal/features/rewards/repository"
-	// t_rep "eco_points/internal/features/trashes/repository"
-	// u_rep "eco_points/internal/features/users/repository"
-	// d_rep "eco_points/internal/features/waste_deposits/repository"
+	u_rep "chapter1/internal/features/users/repository"
+
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
@@ -29,34 +23,6 @@ type setting struct {
 	CldKey      string
 	MidTransKey string
 	Schema      string
-}
-
-type mailSetting struct {
-	Host     string
-	Port     int
-	Name     string
-	Email    string
-	Password string
-}
-
-func ImportGomailSetting() mailSetting {
-	var result mailSetting
-
-	if _, err := os.Stat(".env"); !os.IsNotExist(err) {
-		err := godotenv.Load(".env")
-		if err != nil {
-			return mailSetting{}
-		}
-	} else {
-		log.Println("file not exist")
-	}
-	result.Host = os.Getenv("GOMAIL_HOST")
-	result.Port, _ = strconv.Atoi(os.Getenv("GOMAIL_PORT"))
-	result.Name = os.Getenv("GOMAIL_NAME")
-	result.Email = os.Getenv("GOMAIL_EMAIL")
-	result.Password = os.Getenv("GOMAIL_PASSWORD")
-	return result
-
 }
 
 func ImportSetting() setting {
@@ -95,9 +61,9 @@ func ConnectDB() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	// err = db.AutoMigrate(&u_rep.User{}, &t_rep.Trash{}, &d_rep.WasteDeposit{}, &l_rep.Location{}, &r_rep.Reward{}, &ex_rep.Exchange{}, &f_rep.Feedback{})
-	// if err != nil {
-	// 	return nil, err
-	// }
+	err = db.AutoMigrate(&u_rep.User{})
+	if err != nil {
+		return nil, err
+	}
 	return db, nil
 }
