@@ -9,9 +9,21 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func InitRoute(e *echo.Echo, ah users.UHandler) {
-	e.POST("/login", ah.Login())
-	e.POST("/register", ah.Register())
+func InitRoute(e *echo.Echo, uh users.UHandler) {
+	e.POST("/login", uh.Login())
+	e.POST("/register", uh.Register())
+
+	MemberRoute(e, uh)
+}
+
+func MemberRoute(e *echo.Echo, uh users.UHandler) {
+	u := e.Group("/users")
+	u.Use(JWTConfig())
+	u.PUT("", uh.UpdateUser())
+	u.DELETE("/:id", uh.DeleteUser())
+	u.GET("", uh.GetUserByID())
+	u.GET("/admin", uh.GetAllUsers())
+
 }
 
 func JWTConfig() echo.MiddlewareFunc {

@@ -11,7 +11,7 @@ import (
 )
 
 type JwtUtilityInterface interface {
-	GenereteJwt(id uint) (string, error)
+	GenerateJwt(id uint) (string, error)
 	DecodToken(token *jwt.Token) float64
 	DecodTokenV2(c echo.Context) (uint, error)
 }
@@ -22,7 +22,7 @@ func NewJwtUtility() JwtUtilityInterface {
 	return &JwtUtility{}
 }
 
-func (ju *JwtUtility) GenereteJwt(id uint) (string, error) {
+func (ju *JwtUtility) GenerateJwt(id uint) (string, error) {
 
 	jwtKey := config.ImportSetting().JWTSecret
 	data := jwt.MapClaims{}

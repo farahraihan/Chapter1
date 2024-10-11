@@ -15,7 +15,7 @@ type RegisterRequest struct {
 	Image    string `json:"image" form:"image"`
 }
 
-func RegisterToUser(ur RegisterRequest, imageURL string) users.User {
+func RegisterToUser(ur RegisterRequest) users.User {
 	return users.User{
 		Name:     ur.Name,
 		Phone:    ur.Phone,
