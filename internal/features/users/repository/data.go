@@ -18,13 +18,15 @@ type User struct {
 
 func (u *User) ToUserEntity() users.User {
 	return users.User{
-		ID:       u.ID,
-		Name:     u.Name,
-		Phone:    u.Phone,
-		Email:    u.Email,
-		Password: u.Password,
-		IsAdmin:  u.IsAdmin,
-		Image:    u.Image,
+		ID:        u.ID,
+		Name:      u.Name,
+		Phone:     u.Phone,
+		Email:     u.Email,
+		Password:  u.Password,
+		IsAdmin:   u.IsAdmin,
+		Image:     u.Image,
+		CreatedAt: u.CreatedAt,
+		UpdatedAt: u.UpdatedAt,
 	}
 }
 
