@@ -144,3 +144,7 @@ func (us *UserServices) GetAllUsers(userID uint, limit int, page int, search str
 
 	return users, totalItems, nil
 }
+
+func (us *UserServices) IsAdmin(userID uint) (bool, error) {
+	return us.qry.IsAdmin(userID)
+}
