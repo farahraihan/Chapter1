@@ -28,12 +28,14 @@ func ToLoginResponse(result users.User, token string) LoginResponse {
 
 func ToUserResponse(input users.User) UserResponse {
 	return UserResponse{
-		ID:      input.ID,
-		Name:    input.Name,
-		Email:   input.Email,
-		Phone:   input.Phone,
-		IsAdmin: input.IsAdmin,
-		Image:   input.Image,
+		ID:        input.ID,
+		Name:      input.Name,
+		Email:     input.Email,
+		Phone:     input.Phone,
+		IsAdmin:   input.IsAdmin,
+		Image:     input.Image,
+		CreatedAt: input.CreatedAt,
+		UpdatedAt: input.UpdatedAt,
 	}
 }
 

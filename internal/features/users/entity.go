@@ -36,6 +36,7 @@ type UService interface {
 	DeleteUser(userID uint, memberID uint) error
 	GetUserByID(userID uint) (User, error)
 	GetAllUsers(userID uint, limit int, page int, search string) ([]User, int, error)
+	IsAdmin(userID uint) (bool, error)
 }
 
 type UHandler interface {
