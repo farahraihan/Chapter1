@@ -1,4 +1,4 @@
-package quote
+package quotes
 
 import (
 	"chapter1/internal/features/books"
@@ -16,6 +16,7 @@ type Quote struct {
 	MemberID   uint
 	MemberName string
 	BookTitle  string
+	BookAuthor string
 	User       users.User `gorm:"foreignKey:MemberID"`
 	Book       books.Book `gorm:"foreignKey:BookID"`
 	CreatedAt  time.Time  `gorm:"default:current_timestamp"`
