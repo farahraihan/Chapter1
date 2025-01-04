@@ -15,6 +15,7 @@ type User struct {
 	Password  string
 	Image     string
 	IsAdmin   bool
+	Point     uint
 	CreatedAt time.Time `gorm:"default:current_timestamp"`
 	UpdatedAt time.Time `gorm:"default:current_timestamp"`
 }
@@ -27,6 +28,7 @@ type UQuery interface {
 	GetUserByID(userID uint) (User, error)
 	GetAllUsers(limit int, page int, search string) ([]User, int, error)
 	IsAdmin(userID uint) (bool, error)
+	AddPoints(userID uint, points uint) error
 }
 
 type UService interface {
@@ -37,6 +39,7 @@ type UService interface {
 	GetUserByID(userID uint) (User, error)
 	GetAllUsers(userID uint, limit int, page int, search string) ([]User, int, error)
 	IsAdmin(userID uint) (bool, error)
+	AddPoints(userID uint, points uint) error
 }
 
 type UHandler interface {

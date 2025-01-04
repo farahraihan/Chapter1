@@ -108,3 +108,16 @@ func (uq *UserQuery) IsAdmin(userID uint) (bool, error) {
 	}
 	return user.IsAdmin, nil
 }
+
+func (uq *UserQuery) AddPoints(userID uint, points uint) error {
+	// Tambahkan poin ke pengguna berdasarkan userID
+	result := uq.db.Model(&User{}).
+		Where("id = ?", userID).
+		Update("point", gorm.Expr("point + ?", points))
+
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}

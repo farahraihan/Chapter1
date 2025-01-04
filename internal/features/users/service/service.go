@@ -148,3 +148,7 @@ func (us *UserServices) GetAllUsers(userID uint, limit int, page int, search str
 func (us *UserServices) IsAdmin(userID uint) (bool, error) {
 	return us.qry.IsAdmin(userID)
 }
+
+func (us *UserServices) AddPoints(userID uint, points uint) error {
+	return us.qry.AddPoints(userID, points)
+}

@@ -11,6 +11,10 @@ import (
 	u_rep "chapter1/internal/features/users/repository"
 	u_srv "chapter1/internal/features/users/service"
 
+	f_hnd "chapter1/internal/features/feedbacks/handler"
+	f_rep "chapter1/internal/features/feedbacks/repository"
+	f_srv "chapter1/internal/features/feedbacks/service"
+
 	"chapter1/internal/routes"
 
 	"chapter1/internal/utils"
@@ -34,9 +38,13 @@ func InitFactory(e *echo.Echo) {
 	bs := b_srv.NewBookServices(bq, jwt, cloud, us)
 	bh := b_hnd.NewBookHandler(bs, jwt)
 
+	fq := f_rep.NewFeedbackQuery(db)
+	fs := f_srv.NewFeedbackServices(fq, us)
+	fh := f_hnd.NewFeedbackHandler(fs, jwt)
+
 	e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(middleware.Logger())
 	e.Use(middleware.CORS())
 
-	routes.InitRoute(e, uh, bh)
+	routes.InitRoute(e, uh, bh, fh)
 }

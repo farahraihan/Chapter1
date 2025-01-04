@@ -2,6 +2,7 @@ package config
 
 import (
 	b_rep "chapter1/internal/features/books/repository"
+	f_rep "chapter1/internal/features/feedbacks/repository"
 	u_rep "chapter1/internal/features/users/repository"
 
 	"fmt"
@@ -62,7 +63,7 @@ func ConnectDB() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	err = db.AutoMigrate(&u_rep.User{}, &b_rep.Book{})
+	err = db.AutoMigrate(&u_rep.User{}, &b_rep.Book{}, &f_rep.Feedback{})
 	if err != nil {
 		return nil, err
 	}
