@@ -14,6 +14,7 @@ type User struct {
 	Password string
 	Image    string
 	IsAdmin  bool
+	Point    uint
 }
 
 func (u *User) ToUserEntity() users.User {
@@ -25,6 +26,7 @@ func (u *User) ToUserEntity() users.User {
 		Password:  u.Password,
 		IsAdmin:   u.IsAdmin,
 		Image:     u.Image,
+		Point:     u.Point,
 		CreatedAt: u.CreatedAt,
 		UpdatedAt: u.UpdatedAt,
 	}
@@ -38,5 +40,6 @@ func ToUserQuery(input users.User) User {
 		Password: input.Password,
 		IsAdmin:  input.IsAdmin,
 		Image:    input.Image,
+		Point:    input.Point,
 	}
 }

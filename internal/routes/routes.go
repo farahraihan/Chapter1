@@ -3,6 +3,7 @@ package routes
 import (
 	"chapter1/config"
 	"chapter1/internal/features/books"
+	"chapter1/internal/features/feedbacks"
 	"chapter1/internal/features/users"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -10,15 +11,18 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func InitRoute(e *echo.Echo, uh users.UHandler, bh books.BHandler) {
+func InitRoute(e *echo.Echo, uh users.UHandler, bh books.BHandler, fh feedbacks.FHandler) {
 	e.POST("/login", uh.Login())
 	e.POST("/register", uh.Register())
 
 	e.GET("/books/:id", bh.GetBookByID())
 	e.GET("/books", bh.GetAllBooks())
 
+	e.GET("/feedbacks", fh.GetAllFeedbacks())
+
 	MemberRoute(e, uh)
 	BookRoute(e, bh)
+	FeedbackRoute(e, fh)
 }
 
 func MemberRoute(e *echo.Echo, uh users.UHandler) {
@@ -37,6 +41,13 @@ func BookRoute(e *echo.Echo, bh books.BHandler) {
 	b.PUT("/:id", bh.UpdateBook())
 	b.DELETE("/:id", bh.DeleteBook())
 	b.POST("", bh.AddBook())
+}
+
+func FeedbackRoute(e *echo.Echo, fh feedbacks.FHandler) {
+	f := e.Group("/feedbacks")
+	f.Use(JWTConfig())
+	f.POST("", fh.AddFeedback())
+	f.DELETE("/:id", fh.DeleteFeedback())
 }
 
 func JWTConfig() echo.MiddlewareFunc {
