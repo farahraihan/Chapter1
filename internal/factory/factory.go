@@ -15,6 +15,10 @@ import (
 	f_rep "chapter1/internal/features/feedbacks/repository"
 	f_srv "chapter1/internal/features/feedbacks/service"
 
+	q_hnd "chapter1/internal/features/quotes/handler"
+	q_rep "chapter1/internal/features/quotes/repository"
+	q_srv "chapter1/internal/features/quotes/service"
+
 	"chapter1/internal/routes"
 
 	"chapter1/internal/utils"
@@ -42,9 +46,13 @@ func InitFactory(e *echo.Echo) {
 	fs := f_srv.NewFeedbackServices(fq, us)
 	fh := f_hnd.NewFeedbackHandler(fs, jwt)
 
+	qq := q_rep.NewQuoteQuery(db)
+	qs := q_srv.NewQuoteServices(qq, us)
+	qh := q_hnd.NewQuoteHandler(qs, jwt)
+
 	e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(middleware.Logger())
 	e.Use(middleware.CORS())
 
-	routes.InitRoute(e, uh, bh, fh)
+	routes.InitRoute(e, uh, bh, fh, qh)
 }

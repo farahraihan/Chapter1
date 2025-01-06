@@ -4,6 +4,7 @@ import (
 	"chapter1/config"
 	"chapter1/internal/features/books"
 	"chapter1/internal/features/feedbacks"
+	"chapter1/internal/features/quotes"
 	"chapter1/internal/features/users"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -11,7 +12,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func InitRoute(e *echo.Echo, uh users.UHandler, bh books.BHandler, fh feedbacks.FHandler) {
+func InitRoute(e *echo.Echo, uh users.UHandler, bh books.BHandler, fh feedbacks.FHandler, qh quotes.QHandler) {
 	e.POST("/login", uh.Login())
 	e.POST("/register", uh.Register())
 
@@ -20,9 +21,12 @@ func InitRoute(e *echo.Echo, uh users.UHandler, bh books.BHandler, fh feedbacks.
 
 	e.GET("/feedbacks", fh.GetAllFeedbacks())
 
+	e.GET("/quotes", qh.GetAllQuotes())
+
 	MemberRoute(e, uh)
 	BookRoute(e, bh)
 	FeedbackRoute(e, fh)
+	QuoteRoute(e, qh)
 }
 
 func MemberRoute(e *echo.Echo, uh users.UHandler) {
@@ -48,6 +52,12 @@ func FeedbackRoute(e *echo.Echo, fh feedbacks.FHandler) {
 	f.Use(JWTConfig())
 	f.POST("", fh.AddFeedback())
 	f.DELETE("/:id", fh.DeleteFeedback())
+}
+
+func QuoteRoute(e *echo.Echo, qh quotes.QHandler) {
+	q := e.Group("quotes")
+	q.Use(JWTConfig())
+	q.POST("", qh.AddQuote())
 }
 
 func JWTConfig() echo.MiddlewareFunc {
