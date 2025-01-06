@@ -105,6 +105,6 @@ func (fh *FeedbackHandler) GetAllFeedbacks() echo.HandlerFunc {
 			TotalPages:   (int(totalItems) + limit - 1) / limit,
 		}
 
-		return c.JSON(http.StatusOK, helpers.ResponseWithMetaFormat(http.StatusOK, "success", "successfully retrieved all books", responseData, meta))
+		return c.JSON(http.StatusOK, helpers.ResponseWithMetaFormat(http.StatusOK, "success", "successfully retrieved all feedbacks", responseData, meta))
 	}
 }

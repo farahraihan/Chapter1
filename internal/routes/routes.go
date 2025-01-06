@@ -21,7 +21,7 @@ func InitRoute(e *echo.Echo, uh users.UHandler, bh books.BHandler, fh feedbacks.
 
 	e.GET("/feedbacks", fh.GetAllFeedbacks())
 
-	e.GET("/quotes", qh.AddQuote())
+	e.GET("/quotes", qh.GetAllQuotes())
 
 	MemberRoute(e, uh)
 	BookRoute(e, bh)

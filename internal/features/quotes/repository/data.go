@@ -36,7 +36,7 @@ func (q *Quote) ToQuoteEntity() quotes.Quote {
 func ToQuoteQuery(input quotes.Quote) Quote {
 	return Quote{
 		Content:  input.Content,
-		Caption:  input.Content,
+		Caption:  input.Caption,
 		MemberID: input.MemberID,
 		BookID:   input.BookID,
 	}
